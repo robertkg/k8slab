@@ -50,3 +50,18 @@ minikube config set driver docker
 
 Basic controls: https://minikube.sigs.k8s.io/docs/handbook/controls/
 
+### SQL server
+
+Create docker image for now:
+
+```
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=MyPass@word' -p 1433:1433 -d mcr.microsoft.com/mssql/server
+```
+
+### EF - Code first migrations
+
+https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#create-your-database-and-schema
+
+```
+dotnet tool install --global dotnet-ef
+```
