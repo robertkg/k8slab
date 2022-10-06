@@ -11,7 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add database context to dependency injection (DI)
-builder.Services.AddDbContext<TaskDb>(options => {
+builder.Services.AddDbContext<TaskDb>(options =>
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebApiDbConnection"));
 });
 // Enable output of database exceptions
@@ -43,7 +44,8 @@ app.Run();
 class Task
 {
     public int Id { get; set; }
-    public string? Name { get; set; }
+    public string Name { get; set; }
+    public string? Description { get; set; }
     public bool IsComplete { get; set; }
 }
 
