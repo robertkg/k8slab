@@ -4,7 +4,8 @@ COPY . ./
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-RUN dotnet
+# RUN dotnet tool install --global dotnet-ef
+# ENV PATH="$PATH:/root/.dotnet/tools"
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
