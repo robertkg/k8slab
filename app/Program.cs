@@ -4,14 +4,13 @@ using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Enable Swagger OpenAPI
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add database context to dependency injection (DI)
-builder.Services.AddDbContext<TaskDb>(options =>
+builder.Services.AddDbContext<TaskDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("WebApiDbConnection"));
 });
@@ -26,10 +25,10 @@ app.UseSwaggerUI();
 
 app.MapGet("/", () => "k8slab.webapi");
 
-app.MapGet("/tasks", async (TaskDb db) =>
+app.MapGet("/tasks", async (TaskDbContext db) =>
     await db.Todos.ToListAsync());
 
-app.MapPost("/tasks", async (Task todo, TaskDb db) =>
+app.MapPost("/tasks", async (Task todo, TaskDbContext db) =>
 {
     db.Todos.Add(todo);
     await db.SaveChangesAsync();
@@ -44,16 +43,16 @@ app.Run();
 class Task
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public string? Description { get; set; }
     public bool IsComplete { get; set; }
 }
 
 // Database context
 // The database context is the main class that coordinates Entity Framework functionality for a data model. This class is created by deriving from the Microsoft.EntityFrameworkCore.DbContext class.
-class TaskDb : DbContext
+class TaskDbContext : DbContext
 {
-    public TaskDb(DbContextOptions<TaskDb> options)
+    public TaskDbContext(DbContextOptions<TaskDbContext> options)
         : base(options) { }
 
     public DbSet<Task> Todos => Set<Task>();

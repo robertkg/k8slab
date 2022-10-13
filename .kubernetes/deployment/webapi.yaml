@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi
+spec:
+  selector:
+    matchLabels:
+      run: webapi
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        run: webapi
+    spec:
+      containers:
+        - name: webapi
+          image: k8slab/webapi:latest
+          imagePullPolicy: Never # Force load image locally to avoid pulling from public container registry
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: "Development"
+      initContainers:
+        - name: ef-migration
+          image: k8slab/ef:latest 
+          command: ["sh", "-c", "/opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P MyPass@word -d k8slab.webapi -i /migrations.sql"]
+          imagePullPolicy: Never

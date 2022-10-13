@@ -36,27 +36,19 @@ Install from package manger or download from website:
 scoop install minikube
 ```
 
-Start a cluster:
-
-```
-minikube start --driver=docker --ports=127.0.0.1:8080:80 # expects service (e.g. NodePort) on cluster exposed on port 80
-```
-
 Set docker as default driver:
 
 ```
 minikube config set driver docker
 ```
 
+Start a cluster:
+
+```
+minikube start --driver=docker --ports=127.0.0.1:8080:80 # expects service (e.g. NodePort) on cluster exposed on port 80
+```
+
 Basic controls: https://minikube.sigs.k8s.io/docs/handbook/controls/
-
-### SQL server
-
-Create docker image for now:
-
-```
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=MyPass@word' -p 1433:1433 -d mcr.microsoft.com/mssql/server
-```
 
 ### EF - Code first migrations
 

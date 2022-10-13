@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace k8slab.webapi.Migrations
 {
-    [DbContext(typeof(TaskDb))]
+    [DbContext(typeof(TaskDbContext))]
     partial class TaskDbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

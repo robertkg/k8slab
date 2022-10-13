@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql
+spec:
+  selector:
+    matchLabels:
+      run: mssql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: mssql
+    spec:
+      containers:
+        - name: mssql
+          image: k8slab/mssql:latest
+          imagePullPolicy: Never # Force load image locally to avoid pulling from public container registry
+          ports:
+            - containerPort: 1433
+              protocol: TCP

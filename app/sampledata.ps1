@@ -1,4 +1,4 @@
-$uri = 'http://localhost:5291/tasks'
+$uri = 'http://localhost:8080/tasks'
 @(
     '{"Name":"Build it","Description":"Make some stuff","IsComplete":true}',
     '{"Name":"Break it","Description":"Make sure it breaks","IsComplete":true}',

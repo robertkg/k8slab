@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace k8slab.webapi.Migrations
 {
-    [DbContext(typeof(TaskDb))]
+    [DbContext(typeof(TaskDbContext))]
     [Migration("20221006213745_InitialCreate")]
     partial class InitialCreate
     {
