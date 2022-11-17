@@ -18,12 +18,28 @@ public class ContactsController : Controller
     }
 
     [HttpGet]
+    [Route("all")]
     public IActionResult GetContacts()
     {
         return Ok(dbContext.Contacts.ToList());
     }
 
+    [HttpGet]
+    [Route("{id:guid}")]
+    public IActionResult GetContact(Guid id)
+    {
+        var contact = dbContext.Contacts.Find(id);
+
+        if (contact == null)
+        {
+            return NotFound($"Contact with ID {id} does not exist");
+        }
+
+        return Ok(contact);
+    }
+
     [HttpPost]
+    [Route("add")]
     public IActionResult AddContact(AddContactRequest addContactRequest)
     {
         var contact = new Contact()
@@ -56,5 +72,21 @@ public class ContactsController : Controller
         dbContext.SaveChanges();
 
         return Ok(contact);
+    }
+
+    [HttpDelete]
+    [Route("{id:guid}")]
+    public IActionResult DeleteContact(Guid id)
+    {
+        var contact = dbContext.Contacts.Find(id);
+        if (contact == null)
+        {
+            return NotFound();
+        }
+
+        dbContext.Remove(contact);
+        dbContext.SaveChanges();
+        return Ok(contact);
+
     }
 }
