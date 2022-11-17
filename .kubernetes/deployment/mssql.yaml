@@ -15,7 +15,11 @@ spec:
       containers:
         - name: mssql
           image: k8slab/mssql:latest
-          imagePullPolicy: Never # Force load image locally to avoid pulling from public container registry
+          imagePullPolicy: Never
           ports:
             - containerPort: 1433
               protocol: TCP
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "64Mi"

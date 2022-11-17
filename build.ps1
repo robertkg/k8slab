@@ -25,15 +25,15 @@ if ($PSBoundParameters.ContainsKey('DeleteCluster')) {
 dotnet ef migrations script --project app -o app/mssql/migrations.sql --idempotent
 
 'Building docker images...'
-docker build -t $image app
-docker build -t k8slab/mssql app/mssql
-docker build -t k8slab/ef app/mssql/migrations
+docker build -t k8bslab/webapi app
+docker build -t k8slab/ef app/ef
+#docker build -t k8slab/mssql app/mssql
 if (!$?) { throw }
 
 'Loading docker images into minikube...'
-minikube image load k8slab/webapi:latest
-minikube image load k8slab/mssql:latest
-minikube image load k8slab/ef:latest
+minikube image load k8slab/webapi:$tag
+minikube image load k8slab/ef:$tag
+#minikube image load k8slab/mssql:$tag
 if (!$?) { throw }
 
 'Applying configuration...'

@@ -6,12 +6,19 @@ spec:
   selector:
     matchLabels:
       run: webapi
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
         run: webapi
     spec:
+      initContainers:
+        - name: webapi-init
+          image: groundnuty/k8s-wait-for:v1.7
+          imagePullPolicy: IfNotPresent
+          args:
+            - "job"
+            - "ef-migration"
       containers:
         - name: webapi
           image: k8slab/webapi:latest
@@ -22,8 +29,17 @@ spec:
           env:
             - name: "ASPNETCORE_ENVIRONMENT"
               value: "Development"
-      initContainers:
-        - name: ef-migration
-          image: k8slab/ef:latest 
-          command: ["sh", "-c", "/opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P MyPass@word -d k8slab.webapi -i /migrations.sql"]
-          imagePullPolicy: Never
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "64Mi"
+      # initContainers:
+      #   - name: ef-migration
+      #     image: k8slab/ef:latest
+      #     command:
+      #       [
+      #         "sh",
+      #         "-c",
+      #         "/opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P MyPass@word -d k8slab.webapi -i /migrations.sql",
+      #       ]
+      #     imagePullPolicy: Never

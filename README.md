@@ -45,7 +45,7 @@ minikube config set driver docker
 Start a cluster:
 
 ```
-minikube start --driver=docker --ports=127.0.0.1:8080:80 # expects service (e.g. NodePort) on cluster exposed on port 80
+minikube start --driver=docker --ports=127.0.0.1:8080:80
 ```
 
 Basic controls: https://minikube.sigs.k8s.io/docs/handbook/controls/
