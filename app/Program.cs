@@ -11,7 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Inject DB context to provide API for accessing DB
-builder.Services.AddDbContext<ContactsApiDbContext>(options => options.UseInMemoryDatabase("Contacts"));
+builder.Services.AddDbContext<ContactsApiDbContext>(options =>
+    //options.UseInMemoryDatabase("Contacts")
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString"))
+);
 
 // Scaffolding stuff
 var app = builder.Build();
