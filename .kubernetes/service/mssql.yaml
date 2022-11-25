@@ -1,0 +1,16 @@
+---
+# NodePort service for local debugging
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8slab-mssql
+spec:
+  type: NodePort
+  selector:
+    run: k8slab-mssql
+  ports:
+  - name: k8slab-mssql
+    protocol: TCP
+    port: 1433
+    targetPort: 1433
+    nodePort: 30001

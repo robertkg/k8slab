@@ -1,20 +1,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ef-migration
+  name: k8slab-ef-migration
 spec:
   template:
     spec:
       containers:
-        - name: ef-migration
+        - name: k8slab-ef-migration
           image: k8slab/ef:latest
           imagePullPolicy: Never
-          command:
-            [
-              "sh",
-              "-c",
-              "/opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P MyPass@word -d k8slab.webapi -i /migrations.sql",
-            ]
+          command: ["/bin/sh", "-c", "dotnet-ef database updates"]
       restartPolicy: Never
       #activeDeadlineSeconds: 10
   backoffLimit: 1

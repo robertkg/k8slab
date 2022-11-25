@@ -12,19 +12,3 @@ spec:
       port: 80
       targetPort: 80
       nodePort: 30000
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mssql
-spec:
-  type: NodePort
-  selector:
-    run: mssql
-  ports:
-  - name: mssql
-    protocol: TCP
-    port: 1433
-    targetPort: 1433
-    nodePort: 30001

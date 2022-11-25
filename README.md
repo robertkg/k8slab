@@ -57,3 +57,10 @@ https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotn
 ```
 dotnet tool install --global dotnet-ef
 ```
+
+
+## Debugging
+
+```
+kubectl run -i --tty --rm ef-migration-debug --image=k8slab/ef:latest --restart=Never --image-pull-policy=Never -- /bin/bash
+```

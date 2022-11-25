@@ -1,25 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mssql
+  name: k8slab-mssql
 spec:
   selector:
     matchLabels:
-      run: mssql
+      run: k8slab-mssql
   replicas: 1
   template:
     metadata:
       labels:
-        run: mssql
+        run: k8slab-mssql
     spec:
       containers:
-        - name: mssql
-          image: k8slab/mssql:latest
+        - name: k8slab-mssql
+          image: mcr.microsoft.com/mssql/server:2019-CU18-ubuntu-20.04
           imagePullPolicy: Never
           ports:
             - containerPort: 1433
               protocol: TCP
-          resources:
-            limits:
-              cpu: "250m"
-              memory: "64Mi"
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: MyPass@word
+            - name: MSSQL_PID
+              value: Express
+          # resources:
+          #   limits:
+          #     cpu: "1000m" # 1 minikube vCore
+          #     memory: "1024Mi" # 1024 MB
