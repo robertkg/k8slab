@@ -1,0 +1,22 @@
+[
+    {
+        "fullName": "John Doe",
+        "email": "john.doe@test.com"
+    },
+    {
+        "fullName": "Jane Doe",
+        "email": "jane@doe.com"
+    },
+    {
+        "fullName": "Alice",
+        "email": "alice@testemail.com"
+    },
+    {
+        "fullName": "Bob",
+        "email": "bob@bobsmail.com"
+    },
+    {
+        "fullName": "Test Person",
+        "email": "test.person@mail.com"
+    }
+]
