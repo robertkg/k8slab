@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapi
+  name: k8slab-webapi
 spec:
   selector:
     matchLabels:
-      run: webapi
+      run: k8slab-webapi
   replicas: 1
   template:
     metadata:
       labels:
-        run: webapi
+        run: k8slab-webapi
     spec:
-      initContainers:
-        - name: webapi-init
-          image: groundnuty/k8s-wait-for:v1.7
-          imagePullPolicy: IfNotPresent
-          args:
-            - "job"
-            - "ef-migration"
+      # initContainers:
+      #   - name: k8slab-webapi-init
+      #     image: groundnuty/k8s-wait-for:v1.7
+      #     imagePullPolicy: IfNotPresent
+      #     args:
+      #       - "job"
+      #       - "ef-migration"
       containers:
-        - name: webapi
+        - name: k8slab-webapi
           image: k8slab/webapi:latest
           imagePullPolicy: Never # Force load image locally to avoid pulling from public container registry
           ports:

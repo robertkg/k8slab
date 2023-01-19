@@ -9,7 +9,7 @@ spec:
         - name: k8slab-ef-migration
           image: k8slab/ef:latest
           imagePullPolicy: Never
-          command: ["/bin/sh", "-c", "dotnet-ef database updates"]
+          command: ["/bin/sh", "-c", "dotnet-ef database update"]
       restartPolicy: Never
       #activeDeadlineSeconds: 10
   backoffLimit: 1
