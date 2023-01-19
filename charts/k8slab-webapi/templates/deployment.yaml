@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.metadata.name }}
+spec:
+  selector:
+    matchLabels:
+      run: {{ .Values.metadata.name }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: {{ .Values.metadata.name }}
+    spec:
+      containers:
+        - name: {{ .Values.metadata.name }}
+          image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          env:
+            # TODO: iterate over env key value pairs in values file
+            - name: ASPNET_CORE_ENVIRONMENT
+              value: {{ .Values.env.ASPNET_CORE_ENVIRONMENT }}
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "64Mi"
