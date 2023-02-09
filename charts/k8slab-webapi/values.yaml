@@ -1,13 +1,35 @@
-metadata:
-  name: k8slab-webapi
-deployment:
-  image: "k8slab/webapi"
-  tag: "v1.0.0"
-env:
-  ASPNET_CORE_ENVIRONMENT: Development
+namePrefix: k8slab
 image:
   pullPolicy: Never
-containerPort: 80
+webapi:
+  metadata:
+    name: k8slab-webapi
+  replicaSet: 1
+  deployment:
+    image: k8slab/webapi:latest
+  env:
+    ASPNETCORE_ENVIRONMENT: Development
+  image:
+    pullPolicy: Never
+  containerPort: 80
+  nodePort: 30000
+mssql:
+  metadata:
+    name: k8slab-mssql
+  deployment:
+    image: mcr.microsoft.com/mssql/server:2019-CU18-ubuntu-20.04
+  env:
+    ACCEPT_EULA: "Y"
+    SA_PASSWORD: MyPass@word
+    MSSQL_PID: Express
+  containerPort: 1433
+  nodePort: 30001
+ef:
+  metadata:
+    name: k8slab-ef-migration
+  deployment:
+    image: k8slab/ef:latest
+
 # # Default values for k8slab-webapi.
 # # This is a YAML-formatted file.
 # # Declare variables to be passed into your templates.

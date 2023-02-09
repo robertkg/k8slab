@@ -1,6 +1,15 @@
 # k8slab
 
-## Setup K8S cluster with minikube, docker and WSL 2 
+- [k8slab](#k8slab)
+  - [Prerequisites](#prerequisites)
+    - [WSL 2](#wsl-2)
+    - [Docker Desktop for Windows](#docker-desktop-for-windows)
+    - [kubectl](#kubectl)
+    - [minikube](#minikube)
+  - [Building](#building)
+  - [Debugging](#debugging)
+
+## Prerequisites
 
 ### WSL 2
 
@@ -50,14 +59,12 @@ minikube start --driver=docker --ports=127.0.0.1:8080:80
 
 Basic controls: https://minikube.sigs.k8s.io/docs/handbook/controls/
 
-### EF - Code first migrations
 
-https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli#create-your-database-and-schema
+## Building
 
+```powershell
+Invoke-psake build.psake.ps1 -t build
 ```
-dotnet tool install --global dotnet-ef
-```
-
 
 ## Debugging
 

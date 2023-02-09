@@ -8,8 +8,12 @@ Task 'Delete minikube cluster' -alias 'delete-cluster' {
 }
 
 Task 'Create minikube cluster' -alias 'create-cluster' {
+    $cluster = docker ps -f 'name=minikube' --format '{{.Names}}'
     if ($null -eq (docker ps -f 'name=minikube' --format '{{.Names}}')) {
         minikube start --driver=docker --ports 127.0.0.1:$webApiPort`:30000 --ports 127.0.0.1:$mssqlPort`:30001; if (!$?) { throw }
+    }
+    else {
+        Write-Output "Cluster $cluster already exists, nothing to do"
     }
 }
 
@@ -53,6 +57,11 @@ Task 'Deploy k8slab/webapi' -alias 'k8slab-webapi' {
     "Service listening on http://localhost:$webApiPort/swagger/index.html"
 } -depends 'Apply database migration'
 
+# Alternative to k8slab-* tasks
+Task 'Helm install' -alias 'helm-install' {
+    helm upgrade --install --wait --wait-for-jobs --timeout 2m0s -f charts/k8slab-webapi/values.yaml k8slab-webapi charts/k8slab-webapi; if (!$?) { throw }
+}
+
 Task 'Add sample data' -alias 'add-sample-data' {
     $requestParams = @{
         Uri         = "http://localhost:$webApiPort/api/Contacts/add"
@@ -70,6 +79,7 @@ Task 'Add sample data' -alias 'add-sample-data' {
 }
 
 Task 'Kubernetes delete all' -alias 'k8s-delete-all' {
+    # alternative: kubectl delete all --all
     kubectl delete service k8slab-mssql
     kubectl delete deployment k8slab-mssql
     kubectl delete job k8slab-ef-migration
@@ -78,8 +88,23 @@ Task 'Kubernetes delete all' -alias 'k8s-delete-all' {
     Start-Sleep -Seconds 1
 }
 
+Task 'Install ArgoCD' -alias 'install-argocd' {
+    function base64d ($i) {
+        [Text.Encoding]::Utf8.GetString([Convert]::FromBase64String($i))
+    }
+
+    if ($null -eq ((kubectl get namespace -o json | ConvertFrom-Json).items.metadata | Where-Object name -EQ argocd)) {
+        kubectl create namespace argocd
+    }
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+    $secret = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"
+    Write-Output "Secret: $(base64d $secret)"
+    Write-Output "Port forward"
+}
+
 # Simple tasks
+Task 'build' -depends create-cluster, build-image, load-image,<#k8s-deploy#> helm-install, add-sample-data
+Task 'build-prune' -depends delete-cluster, build
 Task 'k8s-deploy' -depends k8slab-mssql, k8slab-ef, k8slab-webapi
 Task 'k8s-reapply' -depends k8s-delete-all, k8slab-mssql, k8slab-ef, k8slab-webapi, add-sample-data
-Task 'build' -depends create-cluster, build-image, load-image, k8s-deploy, add-sample-data
-Task 'destroy-and-build' -depends delete-cluster, build
