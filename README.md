@@ -1,7 +1,7 @@
 # k8slab
 
 - [k8slab](#k8slab)
-  - [Prerequisites (Windows workstation)](#prerequisites-windows-workstation)
+  - [Prerequisites (Windows)](#prerequisites-windows)
     - [WSL 2](#wsl-2)
     - [PowerShell modules](#powershell-modules)
     - [Docker Desktop for Windows](#docker-desktop-for-windows)
@@ -11,7 +11,7 @@
       - [minikube](#minikube)
   - [Building](#building)
 
-## Prerequisites (Windows workstation)
+## Prerequisites (Windows)
 
 These prerequisites are meant for running on a Windows desktop workstation:
 
