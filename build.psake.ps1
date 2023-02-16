@@ -125,10 +125,12 @@ Task 'Deploy Hashicorp Vault' -alias 'deploy-hashicorp-vault' {
     # Configure Kubernetes authentication
     kubectl exec -it vault-0 -- `
         vault auth enable kubernetes;                                                   if (!$?) { throw }
-    Start-Sleep 3
+    Start-Sleep 1
+    $KUBERNETES_PORT_443_TCP_ADDR = kubectl exec -it vault-0 -- `
+        /bin/sh -c 'echo $KUBERNETES_PORT_443_TCP_ADDR'
     kubectl exec -it vault-0 -- `
         vault write auth/kubernetes/config `
-        kubernetes_host="https://`$KUBERNETES_PORT_443_TCP_ADDR:443";                   if (!$?) { throw }
+        kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR`:443";                   if (!$?) { throw }
 
     # Set up read access policy "internal-app" to secret path internal/database/config
     kubectl create sa internal-app -n default
