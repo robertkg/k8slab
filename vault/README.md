@@ -27,7 +27,7 @@ kubectl port-forward -n vault vault-0 8080:8200
 Check injected secrets in pod
 
 ```
-kubectl exec $(kubectl get pod -l app=nginx -o jsonpath="{.items[0].metadata.name}") -- ls /vault/secrets
+kubectl exec $(kubectl get pod -l app=nginx -o jsonpath="{.items[0].metadata.name}") --container nginx -- ls /vault/secrets
 ```
 
 ## Related links
