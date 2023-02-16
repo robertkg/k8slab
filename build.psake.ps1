@@ -118,7 +118,7 @@ Task 'Deploy Hashicorp Vault' -alias 'deploy-hashicorp-vault' {
     
     # Create a secret at path internal/database/config with a username and password
     kubectl exec -it vault-0 -- `
-        vault kv put internal/database/config username="sa" password="Passw0rd!";       if (!$?) { throw }
+        vault kv put internal/database/config username="sa" password="MyPass@word";     if (!$?) { throw }
     kubectl exec -it vault-0 -- `
         vault kv get internal/database/config;                                          if (!$?) { throw }
     
