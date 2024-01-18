@@ -5,12 +5,12 @@ argocd version || exit 1
 
 echo "=== Installing ArgoCD ==="
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml | exit 1
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml || exit 1
 
 echo "Waiting for ArgoCD deployment ready state..."
 kubectl wait deployment/argocd-server --for=condition=Available --timeout=300s
 
-ARGOCD_ADMIN_SECRET="$(kubectl get secrets argocd-initial-admin-secret -o json | jq -r '.data.password' | base64 -d)" | exit 1
+ARGOCD_ADMIN_SECRET="$(kubectl get secrets argocd-initial-admin-secret -o json | jq -r '.data.password' | base64 -d)" || exit 1
 #ARGOCD_SERVER="$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o jsonpath='{.items[0].metadata.name}')"
 
 echo " "
