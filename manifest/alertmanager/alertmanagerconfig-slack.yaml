@@ -8,12 +8,12 @@ spec:
     - name: slack
       slackConfigs:
         - sendResolved: true
-        - apiURL:
+          apiURL:
             key: apiSecret
             name: slack-webhook
-          channel: '#general'
-          title: '{{ .CommonAnnotations.Severity }}'
-          text: '{{ .Annotations.description }}'
+          channel: '#octhook'
+          title: 'Test title:'
+          text: 'Test description'
   route:
     receiver: slack
     repeatInterval: 1m
