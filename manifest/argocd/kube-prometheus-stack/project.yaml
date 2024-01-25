@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prometheus
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: A collection of Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator.
+  sourceRepos:
+  - https://prometheus-community.github.io/helm-charts
+  destinations:
+  - namespace: prometheus
+    server: https://kubernetes.default.svc
+    name: in-cluster
+  - namespace: kube-system
+    server: https://kubernetes.default.svc
+    name: in-cluster
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  namespaceResourceBlacklist:
+  namespaceResourceWhitelist:
+    - kube-system
+  permitOnlyProjectScopedClusters: false

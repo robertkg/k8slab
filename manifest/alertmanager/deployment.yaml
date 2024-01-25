@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crash-looping-pod
+  namespace: example-app
+  labels:
+    app: crash-looping-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crash-looping-pod
+  template:
+    metadata:
+      labels:
+        app: crash-looping-pod
+    spec:
+      containers:
+      - name: faulty-container
+        image: non-existent-image:latest

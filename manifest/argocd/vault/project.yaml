@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: vault
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: HashiCorp Vault
+  sourceRepos:
+  - 'https://helm.releases.hashicorp.com'
+  destinations:
+  - namespace: vault
+    server: https://kubernetes.default.svc
+    name: in-cluster
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  namespaceResourceBlacklist:
+  namespaceResourceWhitelist:
+  permitOnlyProjectScopedClusters: false

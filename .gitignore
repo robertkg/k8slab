@@ -1,15 +1,1 @@
-# ASP.NET Core build results
-app/debug/
-app/debugPublic/
-app/release/
-app/releases/
-app/x64/
-app/x86/
-app/build/
-app/bld/
-app/bin/
-app/obj/
-app/out/
-app/msbuild.log
-app/msbuild.err
-app/msbuild.wrn
+.oldstuff/
