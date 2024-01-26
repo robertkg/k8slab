@@ -8,7 +8,7 @@
 
 ## Getting started
 
-`setup.sh` will install ArgoCD, kube-prometheus-stack and an example app for polling metrics in your cluster.
+`setup.sh` will install ArgoCD, kube-prometheus-stack, HashiCorp Vault and a flask app (for scraping prometheus metrics) in your cluster.
 
 ```bash
 chmod +x setup.sh
