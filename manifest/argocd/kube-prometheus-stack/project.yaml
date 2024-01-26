@@ -19,7 +19,7 @@ spec:
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
-  namespaceResourceBlacklist:
   namespaceResourceWhitelist:
-    - kube-system
+  - group: '*'
+    kind: '*'
   permitOnlyProjectScopedClusters: false
