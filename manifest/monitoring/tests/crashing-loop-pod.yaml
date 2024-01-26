@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: crash-looping-pod
-  namespace: example-app
+  namespace: monitoring
   labels:
     app: crash-looping-pod
 spec:
