@@ -24,9 +24,9 @@ echo "=== Creating ArgoCD app: vault ==="
 argocd proj create -f manifest/argocd/vault/project.yaml --upsert
 argocd app create -f manifest/argocd/vault/application.yaml --upsert
 
-echo "=== Creating ArgoCD app: myapp ==="
-argocd proj create -f manifest/argocd/myapp/project.yaml --upsert
-argocd app create -f manifest/argocd/myapp/application.yaml --upsert
+echo "=== Creating ArgoCD app: example-app ==="
+argocd proj create -f manifest/argocd/example-app/project.yaml --upsert
+argocd app create -f manifest/argocd/example-app/application.yaml --upsert
 
 echo "=== Creating ArgoCD app: prometheus ==="
 argocd proj create -f manifest/argocd/kube-prometheus-stack/project.yaml --upsert
