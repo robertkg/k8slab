@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app
+spec:
+  destination:
+    namespace: example-app
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: manifest/example-app
+    repoURL: 'https://github.com/robertkg/k8slab/tree/main'
+    targetRevision: main
+  sources: []
+  project: example-app
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+

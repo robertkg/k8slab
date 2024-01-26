@@ -1,21 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: myapp
+  name: example-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: My web application
+  description: Example web app
   sourceRepos:
   - '*'
   destinations:
-  - namespace: myapp
+  - namespace: example-app
     server: https://kubernetes.default.svc
     name: in-cluster
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
-  namespaceResourceBlacklist:
-  namespaceResourceWhitelist:
   permitOnlyProjectScopedClusters: false
