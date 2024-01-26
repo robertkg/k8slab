@@ -28,6 +28,7 @@ echo "=== Creating ArgoCD app: kube-prometheus-stack ==="
 argocd proj create -f manifest/argocd/kube-prometheus-stack/project.yaml --upsert
 argocd app create -f manifest/argocd/kube-prometheus-stack/application.yaml --upsert
 kubectl wait -n prometheus deployment/prometheus-grafana --for=condition=Available --timeout=300s
+kubectl create namespace monitoring
 
 echo "=== Creating ArgoCD app: example-app ==="
 argocd proj create -f manifest/argocd/example-app/project.yaml --upsert
