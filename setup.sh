@@ -24,13 +24,13 @@ echo "=== Creating ArgoCD app: vault ==="
 argocd proj create -f manifest/argocd/vault/project.yaml --upsert
 argocd app create -f manifest/argocd/vault/application.yaml --upsert
 
-echo "=== Creating ArgoCD app: example-app ==="
-argocd proj create -f manifest/argocd/example-app/project.yaml --upsert
-argocd app create -f manifest/argocd/example-app/application.yaml --upsert
-
-echo "=== Creating ArgoCD app: prometheus ==="
+echo "=== Creating ArgoCD app: kube-prometheus-stack ==="
 argocd proj create -f manifest/argocd/kube-prometheus-stack/project.yaml --upsert
 argocd app create -f manifest/argocd/kube-prometheus-stack/application.yaml --upsert
 kubectl wait -n prometheus deployment/prometheus-grafana --for=condition=Available --timeout=300s
+
+echo "=== Creating ArgoCD app: example-app ==="
+argocd proj create -f manifest/argocd/example-app/project.yaml --upsert
+argocd app create -f manifest/argocd/example-app/application.yaml --upsert
 
 echo "Done"
