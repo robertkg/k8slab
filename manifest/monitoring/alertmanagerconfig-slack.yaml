@@ -33,3 +33,7 @@ spec:
     groupWait: 10s
     groupBy:
       - alertname
+      - severity
+    matchers:
+      - name: namespace
+        value: monitoring
