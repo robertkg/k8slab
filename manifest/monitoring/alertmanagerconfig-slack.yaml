@@ -2,7 +2,9 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: alertmanagerconfig-slack
-  namespace: prometheus
+  namespace: monitoring
+  labels:
+    release: prometheus
 spec:
   receivers:
     - name: slack
@@ -11,7 +13,7 @@ spec:
           apiURL:
             key: apiSecret
             name: slack-webhook
-          channel: '#octhook'
+          channel: '#alertmanager'
           title: 'Test title:'
           text: 'Test description'
   route:
