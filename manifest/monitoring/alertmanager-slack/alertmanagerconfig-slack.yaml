@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: alertmanagerconfig-slack
-  namespace: monitoring
+  namespace: vault
   labels:
     release: prometheus
 spec:
@@ -34,6 +34,9 @@ spec:
     groupBy:
       - alertname
       - severity
-    # matchers:
+    matchers:
+      - name: severity
+        value: warning|critical
+        matchType: =~
       # - name: namespace   # Current namespace is automatically added as a matcher when alertmanger reads the config
       #   value: monitoring
