@@ -11,7 +11,7 @@ echo "Waiting for ArgoCD deployment ready state..."
 kubectl wait -n argocd deployment/argocd-server --for=condition=Available --timeout=300s
 
 echo " "
-echo "Please port set up a port forward from another shell and log into ArgoCD"
+echo "Please port set up a port forward from another shell"
 echo " "
 echo "  kubectl port-forward -n argocd svc/argocd-server 8080:443"
 read -r -p "Press Enter to continue..."
