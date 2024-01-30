@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+# Source: https://github.com/aixeshunter/alertmanager-webhook/tree/master/manifests
+metadata:
+  name: alertmanager-webhook
+  namespace: monitoring
+spec:
+  selector:
+    app: alertmanager-webhook
+  ports:
+    - port: 5000

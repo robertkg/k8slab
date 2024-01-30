@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+# Source: https://github.com/aixeshunter/alertmanager-webhook/tree/master/manifests
+metadata:
+  name: alertmanager-webhook
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: alertmanager-webhook
+  template:
+    metadata:
+      labels:
+        app: alertmanager-webhook
+    spec:
+      containers:
+        - name: alertmanager-webhook
+          image: aixeshunter/alertmanager_webhook:v1.0
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: /var/lib/alerts/
+              name: alerts
+          livenessProbe:
+            httpGet:
+              path: /alerts_history
+              port: 5000
+              httpHeaders:
+                - name: Accept
+                  value: applciation/json
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          ports:
+            - containerPort: 5000
+      volumes:
+        - name: alerts
+          hostPath:
+            path: /var/lib/alerts/

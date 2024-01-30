@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanagerconfig-webhook
+  namespace: monitoring
+spec:
+  receivers:
+    - name: alertmanager-webhook
+      webhookConfigs:
+        - url: "http://alertmanager-webhook.monitoring.svc.cluster.local:5000/alerts"
+          sendResolved: true
+  route:
+    receiver: alertmanager-webhook
+    groupWait: 30s
+    groupInterval: 1m
+    repeatInterval: 1h
+    continue: true
+    matchers:
+      - name: destination
+        value: webhook
