@@ -34,6 +34,6 @@ spec:
     groupBy:
       - alertname
       - severity
-    matchers:
-      - name: namespace
-        value: monitoring
+    # matchers:
+      # - name: namespace   # Current namespace is automatically added as a matcher when alertmanger reads the config
+      #   value: monitoring
