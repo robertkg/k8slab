@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: alertmanagerconfig-slack
-  namespace: vault
+  namespace: monitoring # This AlertmanagerConfig will ONLY receive firing alerts from monitoring namespace
   labels:
     release: prometheus
 spec:
